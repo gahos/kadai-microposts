@@ -1,0 +1,17 @@
+<% unless current_user_micropost?(micropost) %>
+  <% if favorited?(micropost) %>
+    <%= form_for(current_user.favorites.find_by(micropost_id: micropost.id), html: { method: :delete }) do |f| %>
+      <%= hidden_field_tag :micropost_id, micropost.id %>
+      <%= button_tag( class: "btn btn-default btn-xs favorited") do %>
+        <%= content_tag :span, "", class: 'glyphicon glyphicon-heart' %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= form_for(current_user.favorites.build) do |f| %>
+      <%= hidden_field_tag :micropost_id, micropost.id %>
+      <%= button_tag( class: "btn btn-default btn-xs") do %>
+        <%= content_tag :span, "", class: 'glyphicon glyphicon-heart' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
